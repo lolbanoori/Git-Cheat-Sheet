@@ -32,5 +32,9 @@ Most of the content in this cheat sheet is based on the excellent material provi
 
 ---
 
-## 🤝 Contributions
-Suggestions and improvements welcome via pull requests or issues.
+## 🛡️ Maintenance & Feedback
+This repository is maintained by [me](https://github.com/lolbanoori). 
+To ensure consistency and quality control, direct Push access is restricted.
+
+**Found an error?**
+Please [Open an Issue](https://github.com/lolbanoori/git-cheat-sheet/issues) describing the mistake. I review all reports weekly and will implement valid corrections personally.
