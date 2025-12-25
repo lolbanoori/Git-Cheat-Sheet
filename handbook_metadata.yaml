@@ -1,7 +1,7 @@
 ---
 title: "The Git Handbook"
 author: "Zohair Banoori"
-date: "07-28-2025"
+date: "v1.0.0"
 geometry: "margin=0.75in"
 fontsize: 11pt
 header-includes:
@@ -13,6 +13,7 @@ header-includes:
   - \sectionfont{\centering\huge\bfseries}
   - \subsectionfont{\large\bfseries}
   - \usepackage{titling}
+  - \setlength{\droptitle}{-5em} # Reduce whitespace above title
   - \pretitle{\begin{center}\Huge\bfseries}
   - \posttitle{\par\end{center}\vskip 0.5em}
   - \preauthor{\begin{center}\Large\bfseries}

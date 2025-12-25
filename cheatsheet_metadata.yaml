@@ -1,7 +1,7 @@
 ---
 title: "Git Cheat Sheet"
 author: "Zohair Banoori"
-date: "07-28-2025"
+date: "v1.0.0"
 geometry: "margin=0.5in"
 classoption: twocolumn
 fontsize: 10pt
@@ -20,4 +20,6 @@ header-includes:
   - \postauthor{\par\end{center}}
   - \predate{\begin{center}\large}
   - \postdate{\par\end{center}}
+  - \usepackage{fvextra}
+  - \DefineVerbatimEnvironment{Highlighting}{Verbatim}{breaklines,commandchars=\\\{\}}
 ---

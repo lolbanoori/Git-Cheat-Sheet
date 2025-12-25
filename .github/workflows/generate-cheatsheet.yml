@@ -45,16 +45,25 @@ jobs:
 
       - name: Build Cheat Sheet
         run: |
-          cat cheatsheet_metadata.yaml \
-              src/commands/basics.md \
-              src/commands/branching-and-remote.md \
-              > cheatsheet_combined.md
+          # 1. Initialize source with Metadata
+          cat cheatsheet_metadata.yaml > cheatsheet_source.md
 
-          pandoc cheatsheet_combined.md \
+          # 2. Add filtered "Basics" (Remove "Installation & GUIs")
+          # Remove from header "Installation & GUIs" up to "Setup"
+          sed '/^## Installation & GUIs/,/^## Setup/{/^## Setup/!d;}' src/commands/basics.md > basics_filtered.md
+          
+          # 3. Filter out Mermaid blocks from all source files and append
+          for f in basics_filtered.md src/commands/branching-and-remote.md; do
+            sed '/^```mermaid/,/^```/d' "$f" >> cheatsheet_source.md
+            echo -e "\n\n" >> cheatsheet_source.md
+          done
+          
+          # Add Glossary (no mermaid there usually, but safe to include)
+          cat src/concepts/glossary.md >> cheatsheet_source.md
+
+          pandoc cheatsheet_source.md \
             -o Git_Cheat_Sheet.pdf \
             --filter mermaid-filter \
-            --toc \
-            --toc-depth=1 \
             -V colorlinks=true \
             --variable mainfont="DejaVu Sans" \
             --pdf-engine=pdflatex
