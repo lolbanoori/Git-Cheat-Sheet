@@ -1,7 +1,13 @@
 # Git Cheat Sheet
 
+[![Build PDF Cheat Sheet](https://github.com/lolbanoori/git-cheat-sheet/actions/workflows/generate-pdf.yml/badge.svg)](https://github.com/lolbanoori/git-cheat-sheet/actions/workflows/generate-pdf.yml)
+
 A comprehensive Git cheat sheet covering essential commands, workflows, and terminology.  
 Intended for developers, students, and teams who want a quick reference for daily Git operations.
+
+## 📥 Download PDF
+This project is **Docs-as-Code**. Every change is automatically compiled into a printable PDF.  
+👉 **[Click here to download the latest Git_Cheat_Sheet.pdf](https://github.com/lolbanoori/git-cheat-sheet/actions)** (Select the most recent run > Scroll down to "Artifacts").
 
 ---
 
@@ -37,4 +43,10 @@ This repository is maintained by [me](https://github.com/lolbanoori).
 To ensure consistency and quality control, direct Push access is restricted.
 
 **Found an error?**
-Please [Open an Issue](https://github.com/lolbanoori/git-cheat-sheet/issues) describing the mistake. I review all reports weekly and will implement valid corrections personally.
+We use a structured process to handle corrections:
+1.  Go to the **[Issues Tab](https://github.com/lolbanoori/git-cheat-sheet/issues)**.
+2.  Click **New Issue**.
+3.  Choose the **🐛 Found an Error?** template.
+4.  Fill out the form with the location and correct text.
+
+I review all reports weekly and will implement valid corrections personally.
