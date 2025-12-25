@@ -18,13 +18,16 @@ jobs:
         with:
           node-version: '20'
 
-      # 1. Install the tool that converts Mermaid text -> Images
-      - name: Install Mermaid Filter & Puppeteer Dependencies
+      - name: Install Pandoc & LaTeX
         run: |
           sudo apt-get update
+          # Install Pandoc and LaTeX basics
           sudo apt-get install -y pandoc texlive-latex-base texlive-fonts-recommended texlive-extra-utils texlive-latex-extra
-          # Install chromium browser dependencies for the headless rendering
-          sudo apt-get install -y chromium-browser libgbm-dev
+          
+          # Install ONLY the shared libraries needed for Chrome (DO NOT install chromium-browser)
+          sudo apt-get install -y libgbm-dev libnss3 libxss1 libasound2 libatk-bridge2.0-0 libgtk-3-0
+
+          # Install mermaid-filter globally
           npm install --global mermaid-filter
 
       - name: Combine Markdown Files
@@ -41,11 +44,10 @@ jobs:
               src/concepts/glossary.md \
               > combined_cheat_sheet.md
 
-      # 2. Add the configuration file for Puppeteer
-      # This tells the filter where to find the Chrome executable on the build server
       - name: Configure Puppeteer
+        # We point to the pre-installed Google Chrome to avoid Snap issues
         run: |
-          echo '{ "puppetArgs": { "args": ["--no-sandbox"] } }' > .mermaid-config.json
+          echo '{ "puppetArgs": { "args": ["--no-sandbox"], "executablePath": "/usr/bin/google-chrome" } }' > .mermaid-config.json
 
       - name: Generate PDF
         run: |
