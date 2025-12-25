@@ -1,8 +1,8 @@
-name: Build PDF Cheat Sheet
+name: Generate PDF
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ main ]
   workflow_dispatch:
 
 jobs:
@@ -10,29 +10,41 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
+      - name: Setup Node
+        uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: 20
 
-      - name: Install Pandoc & LaTeX
+      - name: Install Dependencies
         run: |
+          # 1. Install Pandoc and full LaTeX distribution
           sudo apt-get update
-          # Install Pandoc and LaTeX basics
           sudo apt-get install -y pandoc texlive-latex-base texlive-fonts-recommended texlive-extra-utils texlive-latex-extra
-          
-          # Install ONLY the shared libraries needed for Chrome (DO NOT install chromium-browser)
-          sudo apt-get install -y libgbm-dev libnss3 libxss1 libasound2t64 libatk-bridge2.0-0t64 libgtk-3-0t64
 
-          # Install mermaid-filter globally
-          npm install --global mermaid-filter
+          # 2. Install Google Chrome Stable manually (to avoid Snap issues)
+          wget -q https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+          sudo apt-get install -y ./google-chrome-stable_current_amd64.deb
+
+          # 3. Create a Wrapper Script to FORCE --no-sandbox
+          # This acts as a proxy for Chrome, ensuring the flag is ALWAYS present
+          echo '#!/bin/bash' > chrome_wrapper
+          echo 'exec /usr/bin/google-chrome-stable --no-sandbox "$@"' >> chrome_wrapper
+          chmod +x chrome_wrapper
+          sudo mv chrome_wrapper /usr/bin/chrome-no-sandbox
+
+      - name: Install mermaid-filter
+        run: npm install --global mermaid-filter
+
+      - name: Configure Mermaid Filter
+        run: |
+          # Configure mermaid-filter to use our custom sandboxed wrapper
+          echo '{ "executablePath": "/usr/bin/chrome-no-sandbox" }' > .puppeteer.json
 
       - name: Combine Markdown Files
         run: |
-          # Metadata MUST be first to generate the Title Page
           cat metadata.yaml \
               src/commands/01-basics.md \
               src/commands/02-branching-and-remote.md \
@@ -43,11 +55,6 @@ jobs:
               src/concepts/sha1-integrity.md \
               src/concepts/glossary.md \
               > combined_cheat_sheet.md
-
-      - name: Configure Puppeteer
-        # We point to the pre-installed Google Chrome to avoid Snap issues
-        run: |
-          echo '{ "puppetArgs": { "args": ["--no-sandbox"], "executablePath": "/usr/bin/google-chrome" } }' > .mermaid-config.json
 
       - name: Generate PDF
         run: |
@@ -62,12 +69,9 @@ jobs:
             -V urlcolor=blue \
             --variable mainfont="DejaVu Sans" \
             --pdf-engine=pdflatex
-        env:
-          MERMAID_FILTER_CONFIG: .mermaid-config.json
 
-      - name: Upload PDF Artifact
+      - name: Upload PDF
         uses: actions/upload-artifact@v4
         with:
-          name: Git-Cheat-Sheet-PDF
+          name: git-cheat-sheet
           path: Git_Cheat_Sheet.pdf
-          retention-days: 90

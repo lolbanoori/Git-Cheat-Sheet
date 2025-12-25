@@ -4,11 +4,11 @@ In Git, merge conflicts, or conflicts that occur when merged branches have compe
 
 ```mermaid
 graph TD
-    Base[Base Commit (Ancestor)] --> A[Your Changes]
-    Base --> B[Their Changes]
-    A --> Conflict{???}
+    Base["Base Commit (Ancestor)"] --> A["Your Changes"]
+    Base --> B["Their Changes"]
+    A --> Conflict{"???"}
     B --> Conflict
-    Conflict --> Result[Final Merge Commit]
+    Conflict --> Result["Final Merge Commit"]
     
     style Conflict fill:#ffcccc,stroke:#f00,stroke-width:4px,stroke-dasharray: 5 5
 ```
