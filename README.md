@@ -38,7 +38,7 @@ Intended for developers, students, and teams who want both deep knowledge and qu
 ---
 
 ## Acknowledgment
-Most of the content in this cheat sheet is based on the excellent material provided in the ***Google*** course **“Introduction to Git and GitHub”** on **Coursera**.
+Most of the content in this cheat sheet is based on the excellent material provided in the ***[Google](https://about.google/)*** course **“[Introduction to Git and GitHub](https://www.coursera.org/programs/hec-dlsei-3-0-y1-c2-program-63jre/learn/introduction-git-github)”** on **[Coursera](https://www.coursera.org/)**.
 
 ---
 
