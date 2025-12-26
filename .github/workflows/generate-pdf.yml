@@ -16,13 +16,24 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: '20'
 
-      # --- 1. INSTALL DEPENDENCIES ---
+      # --- VERSION EXTRACTION ---
+      - name: Extract Version
+        id: get_version
+        run: |
+          # Reads 'date: "v1.0.0"' and extracts just 'v1.0.0'
+          VERSION=$(awk -F'"' '/date/ {print $2}' handbook_metadata.yaml | head -n 1)
+          echo "Detected Version: $VERSION"
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+
+      # --- INSTALL DEPENDENCIES ---
       - name: Install System Dependencies
         run: |
           sudo apt-get update
@@ -43,7 +54,7 @@ jobs:
           npm install --global mermaid-filter
           echo '{ "executablePath": "/usr/bin/chrome-no-sandbox" }' > .puppeteer.json
 
-      # --- 2. BUILD HANDBOOK ---
+      # --- BUILD HANDBOOK ---
       - name: Build Handbook PDF
         run: |
           cat handbook_metadata.yaml \
@@ -68,7 +79,7 @@ jobs:
         env:
           MERMAID_FILTER_CONFIG: .puppeteer.json
 
-      # --- 3. BUILD CHEAT SHEET (With filtering) ---
+      # --- BUILD CHEAT SHEET (With filtering) ---
       - name: Build Cheat Sheet PDF
         run: |
           # Initialize with Metadata
@@ -92,15 +103,16 @@ jobs:
         env:
           MERMAID_FILTER_CONFIG: .puppeteer.json
 
-      # --- 4. PUBLISH BOTH TO 'LATEST' RELEASE ---
-      - name: Update Release
+      # --- DYNAMIC RELEASE ---
+      - name: Publish Release
         uses: ncipollo/release-action@v1
         with:
-          # Note: Comma-separated list of files
           artifacts: "Git_Handbook.pdf,Git_Cheat_Sheet.pdf"
-          tag: latest
-          name: "Latest Build"
-          body: "Auto-generated build from main branch."
+          tag: ${{ env.VERSION }}
+          name: "Release ${{ env.VERSION }}"
+
+          # Automatically generates Release Notes from .github/release.yml
+          generateReleaseNotes: true
           allowUpdates: true
           replacesArtifacts: true
           makeLatest: true

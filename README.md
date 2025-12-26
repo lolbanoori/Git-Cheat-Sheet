@@ -10,8 +10,8 @@ Intended for developers, students, and teams who want both deep knowledge and qu
 
 | Document | Direct Link | Description |
 | :--- | :--- | :--- |
-| **The Handbook** | **[Download PDF](https://github.com/lolbanoori/git-handbook/releases/download/latest/Git_Handbook.pdf)** | Comprehensive field manual. |
-| **The Cheat Sheet** | **[Download PDF](https://github.com/lolbanoori/git-handbook/releases/download/latest/Git_Cheat_Sheet.pdf)** | Quick-reference card. |
+| **The Handbook** | **[Download PDF](https://github.com/lolbanoori/git-handbook/releases/latest/download/Git_Handbook.pdf)** | Comprehensive field manual. |
+| **The Cheat Sheet** | **[Download PDF](https://github.com/lolbanoori/git-handbook/releases/latest/download/Git_Cheat_Sheet.pdf)** | Quick-reference card. |
 
 ---
 
