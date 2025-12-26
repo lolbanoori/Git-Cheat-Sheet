@@ -1,67 +1,64 @@
 # Glossary
 
-- **Git**: A free open source version control system available for installation on Unix-based platforms, Windows and macOS.
-- **Version control systems (VCS)**: A tool to safely test code before releasing it, allow multiple people collaborate on the same coding projects together, and stores the history of that code and configuration.
-- **Source Control Management (SCM)**: A tool similar to VCS to store source code.
-- **Repository**: An organization system of files that contain separate software projects.
-- **Git directory**: A database for a Git project that stores the changes and the change history.
-- **Commit**: A command to make edits to multiple files and treat that collection of edits as a single change.
-- **Commit files**: A stage where the changes made to files are safely stored in a snapshot in the Git directory.
-- **Commit ID**: An identifier next to the word commit in the log.
-- **Commit message**: A summary and description with contextual information on the parts of the code or configuration of the commit change.
-- **Working directory**: The directory on your system where your project files reside and are modified before staging.
+## Section 1: Core Concepts & Systems
 
+- **Git**: A free, open-source distributed version control system used to track changes in source code. It handles projects of any size with speed and efficiency.
+- **Version Control System (VCS)**: A software tool that records changes to a file or set of files over time so that you can recall specific versions later. It facilitates collaboration and history tracking.
+- **Source Code Management (SCM)**: Often used interchangeably with VCS, this refers to tools and processes for managing the source code history and changes.
+- **Repository (Repo)**: A data structure (typically a folder) that manages a specific software project, containing all project files and the entire revision history.
+- **Remote Repository**: A version of the repository hosted on a server (like GitHub or GitLab) or another computer. It allows for collaboration and off-site backup.
+- **GitHub**: A cloud-based hosting service for Git repositories. It adds social collaboration features like bug tracking, feature requests, task management, and wikis.
+- **.gitignore**: A text file that tells Git which files or directories to intentionally ignore (not track), such as build artifacts or sensitive API keys.
 
-- **Modified files**: A stage where changes have been made to a file, but they have not been stored or committed.
-- **Git staging area**: A file maintained by Git that contains all the information about what files and changes are going to go into the next commit.
-- **Stage files**: A stage where the changes to files are ready to be committed.
-- **Tracked**: A file’s changes are recorded.
-- **Untracked**: A file’s changes are not recorded.
-- **Patch**: A command that can detect that there were changes made to the file and will do its best to apply the changes.
-- **Diff**: A command to find the differences between two files.
-- **Rollback**: The act of reverting changes made to software to a previous state.
-- **Reset**: A Git command used to undo changes by modifying the index and working directory.
-- **Stash**: A temporary storage where Git saves uncommitted changes so you can work on something else.
-- **Branch**: A pointer to a particular commit, representing an independent line of development in a project.
-- **Head**: This points to the top of the branch that is being used.
-- **Master**: The default branch that Git creates when a new repository is initialized; commonly used to place the approved pieces of a project.
-- **Fast-forward merge**: A merge when all the commits in the checked out branch are also in the branch that's being merged.
-- **Three-way merge**: A merge that uses the snapshots at the two branch tips along with their most recent common ancestor (the commit before the divergence).
-- **Merge conflict**: This occurs when the changes are made on the same part of the same file, and Git won't know how to merge those changes.
-- **Merge**: An operation that combines the origin/master branch into a local master branch.
-- **Rebasing**: The act of changing the base commit used for a branch.
-- **Interactive rebase**: A Git process for modifying individual commits to keep history clean and organized.
-- **.gitignore**: A file that specifies intentionally untracked files Git should ignore.
-- **Alias**: A shorthand name for a remote repository URL used in Git commands.
-- **Remote repositories**: Repositories that enable developers to work independently on local copies while contributing to a shared project.
-- **Remote branches**: Read-only branches that reflect data from a remote repository.
-- **Forking**: Creating a copy of a repository under your own user account.
-- **GitHub**: A web-based Git repository hosting service that enables sharing, access, and cloning of repositories.
-- **Pull request**: A GitHub mechanism for proposing changes that are reviewed before merging into a main branch.
-- **Pull request review**: The process of evaluating, commenting on, and approving or rejecting proposed code changes in a pull request.
-- **Merge commit**: A commit created when merging branches that retains the full history of both branches.
-- **Squash merge**: A Git merge option that combines all commits from a branch into a single commit.
-- **Squash commits**: Combining multiple commits into one and optionally editing the resulting commit message.
-- **Rebase and merge**: A Git operation that applies each commit from a branch onto the base branch without creating a merge commit.
-- **Indirect merge**: A merge that happens when a branch is merged externally into another branch that is already merged.
-- **Code review**: A systematic peer examination of code to identify issues, improve quality, and maintain standards.
-- **Google style guide**: A coding convention maintained by Google to standardize and improve readability across their codebase.
-- **Pair programming**: A technique where two developers work together at one workstation to write and review code.
-- **Tool-assisted review**: A form of code review using software tools that allow asynchronous, tracked feedback with analytics.
-- **Issue tracker (bug tracker)**: A system that shows pending tasks, their status, and who's responsible for them.
-- **Fix up**: The decision to discard commit messages for that commit.
-- **Pipelines**: Defined steps in an automated process to reach a desired result (e.g., build, test, deploy).
-- **CI/CD**: The name for the entire continuous integration and continuous deployment system.
-- **Continuous integration (CI)**: A system that automatically builds and tests code with every change.
-- **Continuous deployment (CD)**: New code is deployed often after it has been automatically built and tested.
-- **Application Programming Interface (API) key**: An authentication token used to call an API and identify the person, programmer, or program accessing a system.
-- **Computer protocols**: Guidelines published as open standards that allow protocols to be implemented across various products.
-- **Secure Shell (SSH)**: A secure protocol for connecting to servers remotely.
-- **SSH protocol**: A standard based on public-key encryption used for remote server access.
-- **SSH key**: A credential used for SSH authentication.
-- **SSH client**: Software that initiates a secure connection to an SSH server.
-- **SSH server**: A system that accepts incoming SSH connections, authenticates them, and establishes secure sessions.
-- **Private key**: A secret cryptographic key used to decrypt data encrypted with the corresponding public key.
-- **Public key**: A cryptographic structure used for secure communication and validating digital signatures.
+## Section 2: The Git Workflow (States of a File)
+
+- **Working Directory (Working Tree)**: The local directory on your computer where you are currently editing files. These changes are not yet tracked by Git until staged.
+- **Staging Area (Index)**: A virtual preparation area. It is a file maintained by Git that stores information about what changes will go into your next commit.
+- **Commit**: A captured snapshot of the project at a specific point in time. It saves the changes currently in the staging area to the local Git history.
+- **Tracked Files**: Files that Git is aware of (they were in the last snapshot or have been staged).
+- **Untracked Files**: Files in your working directory that Git is not watching.
+- **Modified**: A state where a file has been changed but not yet staged or committed.
+- **Staged**: A state where a modified file has been marked to be included in the next commit.
+
+## Section 3: Branching & Merging
+
+- **Branch**: A lightweight, movable pointer to a specific commit. It represents an independent line of development (e.g., a new feature) separate from the main project.
+- **HEAD**: A special pointer that refers to the local branch you are currently working on (the tip of the current branch).
+- **Master / Main**: The default primary branch created when a new repository is initialized. It typically holds the "production-ready" code. (Note: main is the modern standard name, replacing master.)
+- **Merge**: The act of taking the contents of a source branch and integrating them with a target branch.
+- **Fast-forward Merge**: A merge where the target branch pointer simply moves forward to the latest commit of the source branch because the history is linear (no divergent commits).
+- **Three-way Merge**: A merge performed when the branches have diverged. Git uses three snapshots (the two branch tips and their common ancestor) to create a new "merge commit."
+- **Merge Conflict**: A state that occurs when Git cannot automatically resolve differences between two branches (typically when the same line of code is modified differently in both).
+- **Merge Commit**: A specific type of commit resulting from a three-way merge, possessing two parent commits.
+
+## Section 4: Advanced Git Operations
+
+- **Diff**: A command/output that shows the specific line-by-line differences between two files or commits.
+- **Patch**: A file containing a "diff" that can be applied to code to update it.
+- **Rebasing**: The process of moving or combining a sequence of commits to a new base commit. It creates a linear history but rewrites the commit history.
+- **Interactive Rebase**: A mode of rebasing that allows you to edit, squash, reorder, or drop individual commits to clean up history before merging.
+- **Squash Merge**: Combining multiple commits from a feature branch into a single commit when merging into the main branch.
+- **Rollback**: The general act of reverting software to a previous stable state.
+- **Reset**: A command (git reset) used to undo changes by moving the HEAD pointer to a previous state, potentially modifying the staging area and working directory.
+- **Stash**: A temporary storage area for uncommitted changes (dirty working directory) so you can switch branches without losing your work.
+- **Forking**: A GitHub-specific concept (not a Git command) where you create a personal copy of someone else's repository to your own account.
+
+## Section 5: Collaboration & Code Quality
+
+- **Pull Request (PR)**: A platform feature (GitHub/GitLab) used to propose changes. You ask the maintainers of a repository to "pull" your changes into their branch.
+- **Code Review**: The systematic examination of computer source code by peers to identify bugs, improve coding style, and learn from each other.
+- **Pair Programming**: A development technique where two programmers work together at one workstation (one drives/types, the other navigates/reviews).
+- **CI/CD (Continuous Integration/Continuous Deployment)**:
+    - **CI**: Automatically building and testing code every time a change is committed.
+    - **CD**: Automatically releasing changes to production after they pass the CI tests.
+- **Pipelines**: A series of automated steps (build, test, deploy) defined in a CI/CD system.
+
+## Section 6: Security & Protocols
+
+- **SSH (Secure Shell)**: A cryptographic network protocol for operating network services securely over an unsecured network.
+- **SSH Key Pair**: A pair of cryptographic keys used for authentication:
+    - **Public Key**: The key you share with the server (e.g., upload to GitHub). It encrypts data.
+    - **Private Key**: The key you keep secret on your local machine. It decrypts data and signs communications.
+- **API Key**: A unique identifier used to authenticate a user, developer, or calling program to an API (Application Programming Interface).
 
 \newpage
